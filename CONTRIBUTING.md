@@ -1,23 +1,12 @@
-# Contributing: human and AI collaborators
+# Contributing
 
-- Reuse existing PerceptionLab nodes before writing new ones.
-- Each experiment needs a falsifiable question, host-loadable saved graph, a baseline, runnable tests, numbers, provenance, and limitations.
-- Preserve failed runs. Mark hypotheses as hypotheses; do not rename a display to make a claim true.
-- Verify every wiring port and the *effect* of every alleged control.
-- Keep experimental scaffolding here. Propose only reusable nodes and tested workflows upstream through review.
-- Use branches and PRs when working together. Do not overwrite another contributor's changes.
-- Credit code and scientific sources. No unreviewed changes to PerceptionLab main.
-- No hype, no invented measurements, no quantum/biological claims from analogies.
+This is a standalone, headless recall assay derived from PerceptionLabAI 009. It does not contain the workshop's numbered experiment tree, GUI workflows or node manuals. Contributions to that broader workshop belong in [PerceptionLabAI](https://github.com/anttiluode/PerceptionLabAI).
 
-Run `python -m unittest discover -s tests -v` and `python experiments/001_causal_age/run.py --upstream PerceptionLab` with upstream checked out beside this repo, or use the included GitHub Actions workflow.
+- Preserve the original protocol, negative result, receipts and source pins. Put new experimental hypotheses in separate files and label exploratory choices.
+- Verify actual wiring and timing. Reuse the vendored nodes for reproduction; do not silently substitute newer upstream versions.
+- Run `python verify.py`, then `python run.py --smoke --workers 1`. Changes to simulation or scoring also require the full batch, inverse diagnostic and analysis described in the README, with an explanation of any changed results.
+- Keep `vendor/` and `traces/` intact. Uploading all files into the repository root breaks imports and analysis.
+- Separate a communication channel, a trained prediction rule and a supplied inverse model. No biological or consciousness claims follow from the analogy.
+- Use branches/PRs for outside contributions. Antti's explicitly requested maintenance may go to main; fetch current main before publishing and preserve concurrent work.
 
-## Keep the AI workshop manuals up to date
-
-Every new/revised node must have its class, actual port names, behaviour,
-limits and upstream status in [Node Manual](docs/NODE_MANUAL.md). Every
-numbered and control workflow must appear in
-[Workflow Manual](docs/WORKFLOW_MANUAL.md), with a tested JSON graph,
-dossier and durable result receipt. AI work requested by the owner
-goes to **main** by default for normal `git pull`, not a new branch
-that hides the files. Keep failures and null results visible.
-
+The scripts overwrite matching output files. Run scientific reproduction in a disposable clone and compare it with the committed receipts before deciding whether a changed output should be published.
