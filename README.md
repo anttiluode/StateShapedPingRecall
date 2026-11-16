@@ -6,9 +6,13 @@ Antti Luode's research direction · initial experiment, code and report by Astra
 
 [Full report](REPORT.md) · [Protocol fixed before the batch](PROTOCOL.md) · [Numerical summary](summary.json) · [All 96 bodies](results.json) · [Review and next gates](REVIEW.md)
 
-## Follow-up in progress: predictive damping
+## Follow-up: predictive damping (Gemini's proposal)
 
-Fable has added [Gemini’s predictive-damping proposal](damping/PROTOCOL_DAMPING.md) and its [runner](damping/run_damping.py). It changes the learning rule and architecture: 24 fade timers with signed return weights learn to reduce the field at their branch tips. The primary criterion concerns **cancellation and a negative predicted wave**, while Astra’s original positive reconstruction score is still reported. This is a different experiment, not a successful rerun of the original claim. The protocol is committed; no scientific damping result was available at this review checkpoint. [Review notes](REVIEW.md#predictive-damping-follow-up).
+Fable tested a different learning rule on a different body: 24 fade timers with signed branches that learn to **flatten the field at their own tips** after they fire. The rule set beforehand concerned cancellation and a negative predicted wave; Astra's positive reconstruction score was reported unchanged and was expected to fail.
+
+**Result: three of four pre-set conditions passed; the fourth failed narrowly.** On the primary task (three events, 24 bodies), a learned sequence leaves 60% of its surprise, an omitted sequence produces an anti-wave (score 0.32), and all 24 bodies prefer their own history. When the *other* order arrives, the field is 126% of an untrained body's: unexpected input stands out. But the control that swaps which timer drives which branches costs too little (paired interval −0.01 to 0.15), so the rule is not counted as producing sequence prediction. With two events the rule clearly uses timing.
+
+A post-hoc analysis shows why: two thirds of the timers fire within ten ticks of each other, and a trained body's own anti-waves shift its slow timers, so the **second** predicted event is barely cancelled. Astra's reconstruction score stayed negative (−1.46), as declared. [Full damping results](damping/README.md) · [protocol](damping/PROTOCOL_DAMPING.md) · [review notes](REVIEW.md#predictive-damping-follow-up).
 
 ## What was tested
 
@@ -73,7 +77,7 @@ Use `--workers 1` if you prefer a smaller CPU load. Run in a disposable clone if
 | `analyze.py` | Seed-paired bootstrap summary and figure |
 | `vendor/experiments/009_morphology_as_memory/core.py` | Pinned graph builder and host-order simulation |
 | `vendor/nodes/`, `vendor/up/nodes/`, `vendor/tests/` | Minimal node snapshots and headless host shim |
-| `damping/` | Concurrent predictive-damping follow-up, with its own protocol and criteria |
+| `damping/` | Predictive-damping follow-up: protocol, runner, results, post-hoc bounds ([README](damping/README.md)) |
 | `traces/` | First scientific seed and development-seed `.npz` traces |
 | `results.json`, `inverse_control.json`, `summary.json` | Original numerical receipts |
 | `PROTOCOL.md`, `REPORT.md` | Original protocol and interpretation |
