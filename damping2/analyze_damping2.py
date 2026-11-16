@@ -47,7 +47,7 @@ def block(rs):
     return out
 
 
-S = {"%s_%s" % c: block(cell(*c)) for c in R["cells"]}
+S = {"%s_%s" % tuple(c): block(cell(*c)) for c in R["cells"]}
 ew, bs = cell("even", "world"), cell("bunched", "shared")
 second = paired(bs, ew, lambda x: x["trained"]["surprise_left_second_event_window"],
                 lambda x: x["trained"]["surprise_left_second_event_window"])

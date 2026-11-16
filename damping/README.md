@@ -81,6 +81,8 @@ where $`t_i`$ is when timer $`i`$ fires and $`G_s`$ the sensors' response to one
 
 So the near-pass of the timers-shuffled control is mostly explained by the bunched timer delays and the self-shifted slow timers, not only by the rule. This is a diagnosis to test, not a result.
 
+**Tested in [damping2/](../damping2/README.md): not confirmed.** Spreading the timers out made the rule use timing (the timers-shuffled control then costs a lot), but the second event stayed uncancelled in every version of the bank, and the bank's ceiling rose to 0.96. The second-event failure lies in the rule. The same original design on fresh seeds also passed the timers-shuffled control, so the narrow fail above was at the edge of chance.
+
 ## What this does and does not show
 
 It shows that a purely local, signed, tip-flattening rule learns associative timing in this tank: expected input is damped, an omitted input produces a timed anti-wave, and the wrong order is surprising.

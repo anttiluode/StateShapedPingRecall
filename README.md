@@ -12,7 +12,9 @@ Fable tested a different learning rule on a different body: 24 fade timers with 
 
 **Result: three of four pre-set conditions passed; the fourth failed narrowly.** On the primary task (three events, 24 bodies), a learned sequence leaves 60% of its surprise, an omitted sequence produces an anti-wave (score 0.32), and all 24 bodies prefer their own history. When the *other* order arrives, the field is 126% of an untrained body's: unexpected input stands out. But the control that swaps which timer drives which branches costs too little (paired interval −0.01 to 0.15), so the rule is not counted as producing sequence prediction. With two events the rule clearly uses timing.
 
-A post-hoc analysis shows why: two thirds of the timers fire within ten ticks of each other, and a trained body's own anti-waves shift its slow timers, so the **second** predicted event is barely cancelled. Astra's reconstruction score stayed negative (−1.46), as declared. [Full damping results](damping/README.md) · [protocol](damping/PROTOCOL_DAMPING.md) · [review notes](REVIEW.md#predictive-damping-follow-up).
+Astra's reconstruction score stayed negative (−1.46), as declared. [Full damping results](damping/README.md) · [protocol](damping/PROTOCOL_DAMPING.md) · [review notes](REVIEW.md#predictive-damping-follow-up).
+
+**Second round ([damping2/](damping2/README.md)), pre-registered, fresh seeds:** a post-hoc analysis had blamed the timer bank (two thirds of the timers fire in one bunch, and the body's own anti-waves move the slow ones). Spreading the timers evenly and letting them hear only the world made the rule clearly use timing: the timers-shuffled control now costs a lot, and the rule beats any timing-blind body in 20 of 24. But **the second predicted event is not cancelled in any version** (98–125% of its energy left), so the diagnosis is not confirmed. Perfect weights on the fixed bank would cancel 96% with small weights; the rule reaches 0.34. The limit is the rule, probably because each branch listens only a few steps after its own ping while the wave rings for about a hundred frames. The original design on fresh seeds also passed the control it had narrowly failed.
 
 ## What was tested
 
@@ -78,6 +80,7 @@ Use `--workers 1` if you prefer a smaller CPU load. Run in a disposable clone if
 | `vendor/experiments/009_morphology_as_memory/core.py` | Pinned graph builder and host-order simulation |
 | `vendor/nodes/`, `vendor/up/nodes/`, `vendor/tests/` | Minimal node snapshots and headless host shim |
 | `damping/` | Predictive-damping follow-up: protocol, runner, results, post-hoc bounds ([README](damping/README.md)) |
+| `damping2/` | Second round: timer spacing × timer input, pre-registered ([README](damping2/README.md)) |
 | `traces/` | First scientific seed and development-seed `.npz` traces |
 | `results.json`, `inverse_control.json`, `summary.json` | Original numerical receipts |
 | `PROTOCOL.md`, `REPORT.md` | Original protocol and interpretation |
